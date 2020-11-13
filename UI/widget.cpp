@@ -2,6 +2,8 @@
 #include "ui_widget.h"
 #include "../DB/hbdatabase.h"
 #include <QDebug>
+#include "adduserwgt.h"
+#include <QGuiApplication>
 
 Widget::Widget(QWidget *parent) :
     QWidget(parent),
@@ -10,7 +12,9 @@ Widget::Widget(QWidget *parent) :
     ui->setupUi(this);
 
 
-    HBDBShare()->executeUpdate("create table if not exists OrderList (user text, orderNum text, date text, goods text)");
+
+
+
 }
 
 Widget::~Widget()
@@ -20,7 +24,18 @@ Widget::~Widget()
 
 void Widget::on_pushButton_clicked()
 {
+    AddUserWgt *add = new AddUserWgt();
 
+    QRect rect = qApp->activeWindow()->geometry();
+
+    int x = rect.x();
+    int y = rect.y();
+
+    x += ((rect.width() - add->width()) / 2.0);
+    y += ((rect.height() - add->height()) / 2.0);
+
+    add->move(x, y);
+    add->show();
 }
 
 void Widget::on_pushButton_2_clicked()
@@ -35,19 +50,7 @@ void Widget::on_pushButton_3_clicked()
 
 void Widget::on_pushButton_4_clicked()
 {
-    HBDBShare()->executeQuery("select * from Home", [&](QSqlQuery query, QString msg) {
 
-        if (msg.isEmpty())
-        {
-            qDebug() << query.value("name") << "  " << query.value("person");
-            log(query.value("name").toString());
-            log(query.value("person").toString());
-        }
-        else {
-            qDebug() << "Error: " << msg;
-        }
-
-    });
 }
 
 

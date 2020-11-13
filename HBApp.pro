@@ -29,6 +29,7 @@ DESTDIR = ../../Bin
 
 include(UI/UI.pri)
 include(DB/DB.pri)
+include(DataCore/DataCore.pri)
 
 
 

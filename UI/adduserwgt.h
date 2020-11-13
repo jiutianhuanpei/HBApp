@@ -15,6 +15,11 @@ public:
     explicit AddUserWgt(QWidget *parent = nullptr);
     ~AddUserWgt();
 
+private slots:
+    void on_pBtn_confirm_clicked();
+
+    void on_pBtn_cancel_clicked();
+
 private:
     Ui::AddUserWgt *ui;
 };
