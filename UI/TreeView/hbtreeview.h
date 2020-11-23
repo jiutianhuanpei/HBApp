@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QTreeView>
+#include "hbtreemodel.h"
 
 class HBTreeView : public QTreeView
 {
@@ -13,6 +14,10 @@ public:
 signals:
 
 public slots:
+
+private:
+    HBTreeModel *model;
+
 };
 
 #endif // HBTREEVIEW_H
