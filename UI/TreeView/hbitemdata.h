@@ -9,29 +9,23 @@ class HBItemData : public QObject
 {
     Q_OBJECT
 public:
-    explicit HBItemData(const QVector<QVariant> data = {}, HBItemData *parent = nullptr);
+    explicit HBItemData(const QList<QVariant> &data = {}, HBItemData *parent = nullptr);
+    ~HBItemData();
 
+    void appendChild(HBItemData *child);
 
-
-    HBItemData *child(int index);
-    HBItemData *parent();
-    int childCount();
-    int columnNum();
-    QVariant data(int column);
-
-    int childNumber();
-
-    bool insertChildred(int position, int count, int columns);
-    bool insertColumns(int position, int column);
-
-    bool removeChildren(int position, int count);
-    bool removeColumns(int position, int columns);
+    HBItemData *child(int row);
+    int childCount() const;
+    int columnCount() const;
+    QVariant data(int column) const;
+    int row();
+    HBItemData *parentItem();
 
 
 private:
-    QVector<QVariant> itemData;
-    QVector<HBItemData *> childItems;
-    HBItemData *parentItem;
+    QList<HBItemData *> m_childItems;
+    QList<QVariant> m_itemData;
+    HBItemData *m_parentItem;
 
 };
 

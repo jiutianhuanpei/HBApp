@@ -11,6 +11,8 @@ class HBTreeView : public QTreeView
 public:
     explicit HBTreeView(QWidget *parent = nullptr);
 
+    void setData();
+
 signals:
 
 public slots:

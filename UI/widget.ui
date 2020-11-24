@@ -20,9 +20,7 @@ Widget{
 background-color: white;
 }
 
-#treeView{
-background-color: gray;
-}</string>
+</string>
   </property>
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">

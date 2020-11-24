@@ -1,10 +1,13 @@
 #include "hbtreeview.h"
 #include <QPalette>
+#include <QList>
+#include <QDebug>
 
 HBTreeView::HBTreeView(QWidget *parent) : QTreeView(parent)
 {
     QStringList headers;
-    headers << "aaaa" << "bbbbb";
+    headers << "First" << "Second";
+    //headers << "第一个" << "第二个";
 //    headers
 //        << QString::fromLocal8Bit("组织名称")
 //        << QString::fromLocal8Bit("组织编号")
@@ -18,5 +21,17 @@ HBTreeView::HBTreeView(QWidget *parent) : QTreeView(parent)
 
     model = new HBTreeModel(headers);
     setModel(model);
+
+}
+
+void HBTreeView::setData()
+{
+
+
+    QList<QVariant> list;
+    list << "aaa";
+
+    model->appendData(list, QModelIndex());
+
 
 }

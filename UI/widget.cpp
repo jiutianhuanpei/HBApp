@@ -51,6 +51,7 @@ void Widget::on_pushButton_3_clicked()
 void Widget::on_pushButton_4_clicked()
 {
 
+    ui->treeView->setData();
 }
 
 
