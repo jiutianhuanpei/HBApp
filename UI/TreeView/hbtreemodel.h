@@ -26,7 +26,7 @@ private:
     int columnCount(const QModelIndex &parent) const;
 
 private:
-    HBItemData *headerItem = nullptr;
+    HBItemData *rootItem = nullptr;
 
 
 private:

@@ -9,12 +9,12 @@ HBTreeModel::HBTreeModel(const QStringList headers, QObject *parent)
         rootData << k;
     }
 
-    headerItem = new HBItemData(rootData);
+    rootItem = new HBItemData(rootData);
 }
 
 HBTreeModel::~HBTreeModel()
 {
-    delete headerItem;
+    delete rootItem;
 }
 
 void HBTreeModel::appendData(const QList<QVariant> data, const QModelIndex index)
@@ -39,7 +39,7 @@ void HBTreeModel::appendData(const QList<QVariant> data, const QModelIndex index
 
 QVariant HBTreeModel::data(const QModelIndex &index, int role) const
 {
-    qDebug() << __FUNCTION__;
+    //qDebug() << __FUNCTION__;
     if (!index.isValid())
         return QVariant();
 
@@ -54,13 +54,13 @@ QVariant HBTreeModel::headerData(int section, Qt::Orientation orientation, int r
 {
     //qDebug() << __FUNCTION__;
     if (orientation == Qt::Horizontal && role == Qt::DisplayRole)
-        return headerItem->data(section);
+        return rootItem->data(section);
     return QVariant();
 }
 
 QModelIndex HBTreeModel::index(int row, int column, const QModelIndex &parent) const
 {
-    qDebug() << __FUNCTION__;
+    //qDebug() << __FUNCTION__;
 
     if (!hasIndex(row, column, parent))
         return QModelIndex();
@@ -78,7 +78,7 @@ QModelIndex HBTreeModel::index(int row, int column, const QModelIndex &parent) c
 
 QModelIndex HBTreeModel::parent(const QModelIndex &child) const
 {
-    qDebug() << __FUNCTION__;
+    //qDebug() << __FUNCTION__;
 
     if (!child.isValid())
         return QModelIndex();
@@ -86,14 +86,14 @@ QModelIndex HBTreeModel::parent(const QModelIndex &child) const
     HBItemData *childItem = getItem(child);
     HBItemData *parentItem = childItem->parentItem();
 
-    if (parentItem == headerItem)
+    if (parentItem == rootItem || parentItem == nullptr)
         return QModelIndex();
     return createIndex(parentItem->row(), 0, parentItem);
 }
 
 int HBTreeModel::rowCount(const QModelIndex &parent) const
 {
-    qDebug() << __FUNCTION__;
+    //qDebug() << __FUNCTION__;
 
     if (parent.column() > 0)
         return 0;
@@ -107,7 +107,7 @@ int HBTreeModel::columnCount(const QModelIndex &parent) const
     if (parent.isValid())
         return static_cast<HBItemData *>(parent.internalPointer())->columnCount();
 
-    return headerItem->columnCount();
+    return rootItem->columnCount();
 }
 
 
@@ -121,5 +121,5 @@ HBItemData *HBTreeModel::getItem(const QModelIndex &index) const
             return item;
     }
 
-    return headerItem;
+    return rootItem;
 }

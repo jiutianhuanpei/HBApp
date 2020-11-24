@@ -1,7 +1,15 @@
 *.pro.user
 Bin/
 Build/
-
+.qmake.stash
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+ui_*.h
+.vs
+debug
+release
+*.db
 
 
 

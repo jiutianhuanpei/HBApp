@@ -13,7 +13,8 @@ HBItemData::~HBItemData()
 
 void HBItemData::appendChild(HBItemData *child)
 {
-    m_childItems.append(child);
+    //m_childItems.append(child);
+	m_childItems.insert(0, child);
 }
 
 HBItemData *HBItemData::child(int row)
