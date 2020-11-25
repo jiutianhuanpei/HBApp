@@ -27,9 +27,11 @@ CONFIG += c++14
 DESTDIR = ../../Bin
 
 
-include(UI/UI.pri)
-include(DB/DB.pri)
-include(DataCore/DataCore.pri)
+include(Src/UI/UI.pri)
+include(Src/DB/DB.pri)
+include(Src/DataCore/DataCore.pri)
+include(Src/Net/Net.pri)
+include(Src/Base/Base.pri)
 
 
 

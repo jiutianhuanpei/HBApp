@@ -93,7 +93,7 @@ background-color: white;
   <customwidget>
    <class>HBTreeView</class>
    <extends>QTreeView</extends>
-   <header location="global">C:\Users\zhangting\Desktop\HBApp_Pro\UI\TreeView\hbtreeview.h</header>
+   <header location="global">C:\Users\zhangting\Desktop\HBApp_Pro\Src\UI\TreeView\hbtreeview.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
