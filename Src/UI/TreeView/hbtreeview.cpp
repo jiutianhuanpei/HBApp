@@ -8,17 +8,7 @@ HBTreeView::HBTreeView(QWidget *parent) : QTreeView(parent)
 {
     QStringList headers;
     headers << "First" << "Second";
-    //headers << "????? << "?????;
-//    headers
-//        << QString::fromLocal8Bit("????")
-//        << QString::fromLocal8Bit("????")
-//        << QString::fromLocal8Bit("?????)
-//        << QString::fromLocal8Bit("??")
-//        << QString::fromLocal8Bit("??????")
-//        << QString::fromLocal8Bit("??")
-//        << QString::fromLocal8Bit("??")
-//        << QString::fromLocal8Bit("??")
-//        << QString::fromLocal8Bit("??????);
+
 
     model = new HBTreeModel(headers);
     setModel(model);

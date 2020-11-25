@@ -5,13 +5,15 @@
 #include "adduserwgt.h"
 #include <QGuiApplication>
 #include "TreeView/hbitemdata.h"
+#include "../Base/base.h"
+
+using namespace Base;
 
 Widget::Widget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Widget)
 {
     ui->setupUi(this);
-
 
 
 

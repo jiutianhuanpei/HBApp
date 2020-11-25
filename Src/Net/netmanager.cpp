@@ -3,6 +3,11 @@
 #include <QNetworkAccessManager>
 #include <QMutex>
 
+#include "../Base/base.h"
+#include "../Base/hblogininfo.h"
+
+using namespace Base;
+
 NetManager* NetManager::m_instance = nullptr;
 static QMutex k_net_mutex;
 
@@ -22,6 +27,34 @@ NetManager::NetManager(QObject *parent)
 {
 }
 
+void NetManager::http(const NetManager::HttpType type, const QString urlStr, const QVariantMap param, const QString deviceId)
+{
+
+    QNetworkRequest request;
+    if (type == FORM)
+        request.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("application/x-www-form-urlencoded"));
+    else
+        request.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("application/json;charset=utf-8"));
+
+    QVariantMap headersMap = m_getRequestHeader(deviceId);
+    foreach(QString key, headersMap.keys())
+    {
+        QVariant value = headersMap[key];
+        QByteArray headName = key.toLocal8Bit();
+        QByteArray headValue = value.toString().toLocal8Bit();
+        request.setRawHeader(headName, headValue);
+    }
+
+
+    //QVariantMap bodyMap = hyEncryptWithUrl(urlStr, param, type == POST);
+    QString m_body;
+
+
+
+
+
+}
+
 NetManager::~NetManager()
 {
 
@@ -34,24 +67,24 @@ NetManager *NetInset()
 
 
 
-//QVariantMap HYNetManager::m_getRequestHeader(QString deviceId /* = nullptr */)
-//{
-//	QVariantMap header;
+QVariantMap NetManager::m_getRequestHeader(QString deviceId /* = nullptr */)
+{
+    QVariantMap header;
 
-//	if (!HYHttpData::sharedInstance()->token.isEmpty())
-//	{
-//		header["AuthorizationToken"] = HYHttpData::sharedInstance()->token;
-//	}
+    if (!HBLoginUser()->token.isEmpty())
+    {
+        header["AuthorizationToken"] = HBLoginUser()->token;
+    }
 
-//	header["AppName"] = kAppName;
-//	header["DeviceId"] = kHYDeviceId;
-//	header["Version"] = NXE_VERSION_STRING;
-//	header["DeviceType"] = "PC";
+    header["AppName"] = appName();
+    header["DeviceId"] = computerId();
+    header["Version"] = appVersion();
+    header["DeviceType"] = "PC";
 
-//	if (!deviceId.isEmpty())
-//		header["AuthorizationJwtoken"] = HYHttpData::sharedInstance()->jwtokenMap[deviceId];
-//	return header;
-//}
+    if (!deviceId.isEmpty())
+        header["AuthorizationJwtoken"] = HBLoginUser()->jwtokenMap[deviceId];
+    return header;
+}
 
 
 //QVariantMap HYNetManager::hyEncryptWithUrl(QString urlStr, QVariantMap param, bool paramIsBody)
