@@ -22,7 +22,13 @@ Widget::~Widget()
     delete ui;
 }
 
-void Widget::on_pushButton_clicked()
+
+void Widget::log(const QString msg)
+{
+    qDebug() << "msg: " << msg;
+}
+
+void Widget::on_pBtn_add_clicked()
 {
     AddUserWgt *add = new AddUserWgt();
 
@@ -38,24 +44,19 @@ void Widget::on_pushButton_clicked()
     add->show();
 }
 
-void Widget::on_pushButton_2_clicked()
+void Widget::on_pBtn_delete_clicked()
 {
-   // m_database->createTable("Home", QStringList() << "name text" << "person Integer");
+
 }
 
-void Widget::on_pushButton_3_clicked()
+void Widget::on_pBtn_modify_clicked()
 {
-    //m_database->executeUpdate("insert into Home (name, person) values ('Bang', 20)");
+    ui->treeView->sortByColumn(0, Qt::AscendingOrder);
 }
 
-void Widget::on_pushButton_4_clicked()
+void Widget::on_pBtn_log_clicked()
 {
 
-    ui->treeView->setData();
-}
+    ui->treeView->sortByColumn(0, Qt::DescendingOrder);
 
-
-void Widget::log(const QString msg)
-{
-    qDebug() << "msg: " << msg;
 }

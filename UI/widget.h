@@ -19,13 +19,13 @@ public:
     void log(const QString msg);
 
 private slots:
-    void on_pushButton_clicked();
+    void on_pBtn_add_clicked();
 
-    void on_pushButton_2_clicked();
+    void on_pBtn_delete_clicked();
 
-    void on_pushButton_3_clicked();
+    void on_pBtn_modify_clicked();
 
-    void on_pushButton_4_clicked();
+    void on_pBtn_log_clicked();
 
 private:
     Ui::Widget *ui;

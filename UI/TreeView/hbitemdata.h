@@ -21,6 +21,8 @@ public:
     int row();
     HBItemData *parentItem();
 
+    void description();
+
 
 private:
     QList<HBItemData *> m_childItems;

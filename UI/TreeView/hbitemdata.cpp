@@ -1,4 +1,6 @@
 #include "hbitemdata.h"
+#include <QDebug>
+
 
 HBItemData::HBItemData(const QList<QVariant> &data, HBItemData *parent)
 {
@@ -48,5 +50,15 @@ int HBItemData::row()
 HBItemData *HBItemData::parentItem()
 {
     return m_parentItem;
+}
+
+void HBItemData::description()
+{
+    qDebug() << "Begin:\nData: " << m_itemData << "\nChildren:";
+    foreach (HBItemData *data, m_childItems) {
+        qDebug() << data->m_itemData;
+    }
+
+    qDebug() << "endl\n";
 }
 

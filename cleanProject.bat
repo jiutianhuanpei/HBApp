@@ -1,3 +1,2 @@
 
-rm -rf Bin Build *.pro.user
-
+rm -rf Bin Build *.pro.user ui_*.h *.vcxproj *.vcxproj.filters *.vcxproj.user .qmake.stash *.db .vs 

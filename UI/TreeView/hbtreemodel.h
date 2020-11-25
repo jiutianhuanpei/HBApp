@@ -31,6 +31,7 @@ private:
 
 private:
     HBItemData *getItem(const QModelIndex &index) const;
+	void configData();
 
 };
 

@@ -10,6 +10,7 @@ HBTreeModel::HBTreeModel(const QStringList headers, QObject *parent)
     }
 
     rootItem = new HBItemData(rootData);
+	configData();
 }
 
 HBTreeModel::~HBTreeModel()
@@ -122,4 +123,40 @@ HBItemData *HBTreeModel::getItem(const QModelIndex &index) const
     }
 
     return rootItem;
+}
+
+void HBTreeModel::configData()
+{
+
+	HBItemData *first = new HBItemData(QList<QVariant>() << "A" << "AA", rootItem);
+
+	HBItemData *f1 = new HBItemData(QList<QVariant>() << "a" << "aa", first);
+	first->appendChild(f1);
+	HBItemData *f2 = new HBItemData(QList<QVariant>() << "aa" << "aaa", first);
+	first->appendChild(f2);
+
+	HBItemData *second = new HBItemData(QList<QVariant>() << "B" << "BB", rootItem);
+	HBItemData *s1 = new HBItemData(QList<QVariant>() << "b" << "bb", second);
+	second->appendChild(s1);
+	HBItemData *s2 = new HBItemData(QList<QVariant>() << "bb" << "bbb", second);
+	second->appendChild(s2);
+
+
+	HBItemData *four = new HBItemData(QList<QVariant>() << "D" << "DD", rootItem);
+
+
+	HBItemData *third = new HBItemData(QList<QVariant>() << "C" << "CC", rootItem);
+	HBItemData *t1 = new HBItemData(QList<QVariant>() << "cc" << "ccc", third);
+	third->appendChild(t1);
+	HBItemData *t2 = new HBItemData(QList<QVariant>() << "ccc" << "cc", third);
+	third->appendChild(t2);
+	HBItemData *t3 = new HBItemData(QList<QVariant>() << "cccc" << "ccccc", third);
+	third->appendChild(t3);
+
+
+
+	rootItem->appendChild(four);
+	rootItem->appendChild(third);
+	rootItem->appendChild(second);
+	rootItem->appendChild(first);
 }

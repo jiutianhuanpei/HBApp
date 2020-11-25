@@ -2,25 +2,48 @@
 #include <QPalette>
 #include <QList>
 #include <QDebug>
+#include "hbitemdata.h"
 
 HBTreeView::HBTreeView(QWidget *parent) : QTreeView(parent)
 {
     QStringList headers;
     headers << "First" << "Second";
-    //headers << "第一�? << "第二�?;
+    //headers << "????? << "?????;
 //    headers
-//        << QString::fromLocal8Bit("组织名称")
-//        << QString::fromLocal8Bit("组织编号")
-//        << QString::fromLocal8Bit("在线�?)
-//        << QString::fromLocal8Bit("总数")
-//        << QString::fromLocal8Bit("是否有子节点")
-//        << QString::fromLocal8Bit("经度")
-//        << QString::fromLocal8Bit("纬度")
-//        << QString::fromLocal8Bit("类型")
-//        << QString::fromLocal8Bit("需要获�?);
+//        << QString::fromLocal8Bit("????")
+//        << QString::fromLocal8Bit("????")
+//        << QString::fromLocal8Bit("?????)
+//        << QString::fromLocal8Bit("??")
+//        << QString::fromLocal8Bit("??????")
+//        << QString::fromLocal8Bit("??")
+//        << QString::fromLocal8Bit("??")
+//        << QString::fromLocal8Bit("??")
+//        << QString::fromLocal8Bit("??????);
 
     model = new HBTreeModel(headers);
     setModel(model);
+
+    connect(this, &HBTreeView::expanded, this, [&](const QModelIndex& index) {
+
+        static_cast<HBItemData *>(index.internalPointer())->description();
+
+    });
+
+    connect(this, &HBTreeView::collapsed, this, [&](const QModelIndex& index) {
+        static_cast<HBItemData *>(index.internalPointer())->description();
+    });
+
+    QItemSelectionModel *selectmodel = new QItemSelectionModel(model);
+    setSelectionModel(selectmodel);
+    connect(selectmodel, &QItemSelectionModel::currentChanged, this, [&]() {
+
+        bool hasSelection = !selectionModel()->selection().isEmpty();
+        bool hasCurrent = selectionModel()->currentIndex().isValid();
+
+
+        qDebug() << "has: " << hasSelection << hasCurrent;
+
+    });
 
 }
 
@@ -33,7 +56,7 @@ void HBTreeView::setData()
     QList<QVariant> list;
     list << a++ << b++;
 
-	qDebug() << __FUNCTION__ << list;
+    qDebug() << __FUNCTION__ << list;
 
 
     model->appendData(list, QModelIndex());

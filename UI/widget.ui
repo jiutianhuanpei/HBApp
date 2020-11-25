@@ -22,11 +22,11 @@ background-color: white;
 
 </string>
   </property>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="pBtn_add">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>20</y>
+     <x>390</x>
+     <y>120</y>
      <width>75</width>
      <height>23</height>
     </rect>
@@ -35,11 +35,11 @@ background-color: white;
     <string>添加数据</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="pBtn_delete">
    <property name="geometry">
     <rect>
-     <x>500</x>
-     <y>30</y>
+     <x>390</x>
+     <y>180</y>
      <width>75</width>
      <height>23</height>
     </rect>
@@ -48,11 +48,11 @@ background-color: white;
     <string>delete</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_3">
+  <widget class="QPushButton" name="pBtn_modify">
    <property name="geometry">
     <rect>
-     <x>500</x>
-     <y>90</y>
+     <x>390</x>
+     <y>240</y>
      <width>75</width>
      <height>23</height>
     </rect>
@@ -61,17 +61,17 @@ background-color: white;
     <string>modify</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_4">
+  <widget class="QPushButton" name="pBtn_log">
    <property name="geometry">
     <rect>
-     <x>500</x>
-     <y>150</y>
+     <x>390</x>
+     <y>320</y>
      <width>75</width>
      <height>23</height>
     </rect>
    </property>
    <property name="text">
-    <string>fetch</string>
+    <string>打印</string>
    </property>
   </widget>
   <widget class="HBTreeView" name="treeView">
