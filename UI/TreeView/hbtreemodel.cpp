@@ -20,14 +20,15 @@ HBTreeModel::~HBTreeModel()
 
 void HBTreeModel::appendData(const QList<QVariant> data, const QModelIndex index)
 {
-    if (data.count() == 0)
+    if (data.count() == 0 || !index.isValid())
         return;
 
     HBItemData *parentItem = getItem(index);
 
+
     beginInsertRows(index, parentItem->childCount(), parentItem->childCount() + 1);
 
-    HBItemData *addItem = new HBItemData(data);
+    HBItemData *addItem = new HBItemData(data, parentItem);
     parentItem->appendChild(addItem);
 
     endInsertRows();

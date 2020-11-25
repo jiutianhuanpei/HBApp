@@ -43,6 +43,9 @@ HBTreeView::HBTreeView(QWidget *parent) : QTreeView(parent)
 
         qDebug() << "has: " << hasSelection << hasCurrent;
 
+        QModelIndex index = selectionModel()->currentIndex();
+        qDebug() << index.row() << index.column() << index.data();
+
     });
 
 }
@@ -61,5 +64,15 @@ void HBTreeView::setData()
 
     model->appendData(list, QModelIndex());
 
+
+}
+
+void HBTreeView::appendData(const QList<QVariant> data, const QModelIndex parent)
+{
+
+    if (!parent.isValid())
+        return;
+
+    model->appendData(data, parent);
 
 }

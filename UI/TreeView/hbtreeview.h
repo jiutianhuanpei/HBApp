@@ -13,6 +13,8 @@ public:
 
     void setData();
 
+    void appendData(const QList<QVariant> data, const QModelIndex parent);
+
 signals:
 
 public slots:

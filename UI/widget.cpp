@@ -4,6 +4,7 @@
 #include <QDebug>
 #include "adduserwgt.h"
 #include <QGuiApplication>
+#include "TreeView/hbitemdata.h"
 
 Widget::Widget(QWidget *parent) :
     QWidget(parent),
@@ -51,12 +52,19 @@ void Widget::on_pBtn_delete_clicked()
 
 void Widget::on_pBtn_modify_clicked()
 {
-    ui->treeView->sortByColumn(0, Qt::AscendingOrder);
+    QModelIndex index = ui->treeView->selectionModel()->currentIndex();
+    qDebug() << index.internalPointer();
+
+
+
 }
 
 void Widget::on_pBtn_log_clicked()
 {
 
-    ui->treeView->sortByColumn(0, Qt::DescendingOrder);
+    QList<QVariant> list;
+    list << "kkk" << "ooo";
+
+    ui->treeView->appendData(list, ui->treeView->selectionModel()->currentIndex());
 
 }
