@@ -32,5 +32,11 @@
         <file>Assets/Image/ioc_map_on.png</file>
         <file>Assets/Image/ioc_operation_nor.png</file>
         <file>Assets/Image/ioc_operation_on.png</file>
+        <file>Assets/Image/green_nor.png</file>
+        <file>Assets/Image/green_on.png</file>
+        <file>Assets/Image/red_nor.png</file>
+        <file>Assets/Image/red_on.png</file>
+        <file>Assets/Image/yellow_nor.png</file>
+        <file>Assets/Image/yellow_on.png</file>
     </qresource>
 </RCC>

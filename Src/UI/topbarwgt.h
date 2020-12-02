@@ -5,7 +5,6 @@
 #include <QFrame>
 #include "uiheader.h"
 #include <QButtonGroup>
-#include "zoomcontrol.h"
 
 namespace Ui {
 class TopBarWgt;
@@ -30,7 +29,6 @@ signals:
 private:
     Ui::TopBarWgt *ui;
 
-    ZoomControl *zc;
 
     QButtonGroup *m_btns;
 

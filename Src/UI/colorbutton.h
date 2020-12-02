@@ -15,8 +15,9 @@ public:
         Max
     };
 
+    explicit ColorButton(QWidget *parent = nullptr);
 
-    explicit ColorButton(ButtonType type, QWidget *parent = nullptr);
+    void setType(ButtonType type);
 
 signals:
     void signalDidClickedBtn();

@@ -12,6 +12,11 @@ enum MenuIndex {
     Web
 };
 
+enum WindowZoom {
+    Close,
+    Min,
+    Max
+};
 
 
 

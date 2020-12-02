@@ -1,8 +1,14 @@
 #include "colorbutton.h"
 
-ColorButton::ColorButton(ButtonType type, QWidget *parent) : QWidget(parent)
+ColorButton::ColorButton(QWidget *parent) : QWidget(parent)
 {
 
+
+
+}
+
+void ColorButton::setType(ColorButton::ButtonType type)
+{
     QString colorStr;
     if (type == Close)
         colorStr = "red";
@@ -12,9 +18,7 @@ ColorButton::ColorButton(ButtonType type, QWidget *parent) : QWidget(parent)
         colorStr = "green";
 
     QString style = QString("background: %1;").arg(colorStr);
-    style = "background:green;";
-//    setStyleSheet(style);
-
+    setStyleSheet(style);
 }
 
 void ColorButton::mousePressEvent(QMouseEvent *event)

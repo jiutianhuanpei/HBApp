@@ -11,7 +11,7 @@ SOURCES += \
     $$PWD/hbwebview.cpp \
     $$PWD/topbarwgt.cpp \
     $$PWD/colorbutton.cpp \
-    $$PWD/zoomcontrol.cpp
+    $$PWD/zoomctl.cpp
 
 HEADERS += \
     $$PWD/widget.h \
@@ -23,12 +23,13 @@ HEADERS += \
     $$PWD/topbarwgt.h \
     $$PWD/uiheader.h \
     $$PWD/colorbutton.h \
-    $$PWD/zoomcontrol.h
+    $$PWD/zoomctl.h
 
 FORMS += \
     $$PWD/widget.ui \
     $$PWD/adduserwgt.ui \
-    $$PWD/topbarwgt.ui
+    $$PWD/topbarwgt.ui \
+    $$PWD/zoomctl.ui
 
 RESOURCES += \
     $$PWD/res.qrc

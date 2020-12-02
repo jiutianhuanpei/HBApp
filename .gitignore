@@ -10,6 +10,6 @@ ui_*.h
 debug
 release
 *.db
-
+Build_*/
 
 

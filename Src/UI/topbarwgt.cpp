@@ -1,6 +1,7 @@
 #include "topbarwgt.h"
 #include "ui_topbarwgt.h"
 #include <QDebug>
+#include "../Src/MessageCenter/messagecore.h"
 
 TopBarWgt::TopBarWgt(QWidget *parent) :
     QFrame(parent),
@@ -8,11 +9,8 @@ TopBarWgt::TopBarWgt(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    zc = new ZoomControl(this);
-    zc->setGeometry(0, 0, 100, 30);
-
-
     qRegisterMetaType<MenuIndex>("MenuIndex");
+    qRegisterMetaType<WindowZoom>("WindowZoom");
 
     m_btns = new QButtonGroup(this);
     m_btns->setExclusive(true);
@@ -28,6 +26,8 @@ TopBarWgt::TopBarWgt(QWidget *parent) :
         MenuIndex a = (MenuIndex)index;
         emit signal_didClickedMenu(a);
     });
+
+    connect(ui->zoomCtl, &ZoomCtl::signal_didClicked, MsgInset(), &MessageCore::signal_windowZoom);
 
 }
 

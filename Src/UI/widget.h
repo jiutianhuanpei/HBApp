@@ -1,6 +1,7 @@
 #ifndef WIDGET_H
 #define WIDGET_H
 
+#include <QMouseEvent>
 #include <QWidget>
 #include "hbwebview.h"
 #include "uiheader.h"
@@ -21,6 +22,12 @@ private:
     void _InitializeWidgets();
     void _InitializeConnects();
     void didClickedMenu(MenuIndex index);
+
+    void region(const QPoint& point);
+
+
+protected:
+   void mouseMoveEvent(QMouseEvent *event);
 
 private:
     Ui::Widget *ui;

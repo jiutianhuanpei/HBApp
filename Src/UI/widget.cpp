@@ -9,8 +9,7 @@
 
 #include "../Net/netmanager.h"
 #include <QStackedWidget>
-#include "zoomcontrol.h"
-#include "colorbutton.h"
+#include "../Src/MessageCenter/messagecore.h"
 
 using namespace Base;
 using namespace NetTools;
@@ -21,7 +20,7 @@ Widget::Widget(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    setWindowFlags(Qt::FramelessWindowHint | windowFlags());
+    setWindowFlags(Qt::FramelessWindowHint | Qt::WindowMinimizeButtonHint | windowFlags());
 
     _InitializeWidgets();
     _InitializeConnects();
@@ -45,23 +44,6 @@ void Widget::_InitializeWidgets()
         {
             QWidget *main = new QWidget;
             ui->stackedWidget->insertWidget(BigScreen, main);
-
-//            QWidget *zc = new QWidget(main);
-//            zc->setFixedSize(100, 50);
-//            zc->setStyleSheet("background:red;");
-
-//            ColorButton *btn = new ColorButton(ColorButton::Max, main);
-//            ui->stackedWidget->insertWidget(BigScreen, btn);
-
-            QWidget *btn = new QWidget(main);
-
-//            QPushButton *btn = new QPushButton(main);
-//            btn->setFixedSize(50, 50);
-//            btn->move(100, 50);
-            btn->setStyleSheet("background:green;");
-            btn->resize(100, 100);
-            btn->show();
-
             break;
         }
         case Monitor:
@@ -105,6 +87,31 @@ void Widget::_InitializeWidgets()
 void Widget::_InitializeConnects()
 {
     connect(ui->topBar, &TopBarWgt::signal_didClickedMenu, this, &Widget::didClickedMenu);
+    connect(MsgInset(), &MessageCore::signal_windowZoom, this, [&](WindowZoom zoom) {
+        if (zoom == Close)
+        {
+            close();
+        }
+        else if (zoom == Min)
+        {
+            qDebug() << "need min";
+            //           showMinimized();
+            setWindowState(Qt::WindowMinimized);
+        }
+        else
+        {
+            if (isFullScreen())
+            {
+                showNormal();
+            }
+            else
+            {
+                showFullScreen();
+            }
+        }
+
+    });
+
 }
 
 void Widget::didClickedMenu(MenuIndex index)
@@ -148,6 +155,26 @@ void Widget::didClickedMenu(MenuIndex index)
     default:
         break;
     }
+}
+
+void Widget::region(const QPoint &point)
+{
+    QRect rect = this->rect();
+
+    QPoint topLeft = this->mapToGlobal(rect.topLeft()); //将左上角的(0,0)转化为全局坐标
+    QPoint rightBottom = this->mapToGlobal(rect.bottomRight());
+
+    int x = point.x(); //当前鼠标的坐标
+    int y = point.y();
+}
+
+void Widget::mouseMoveEvent(QMouseEvent *event)
+{
+    QPoint globalPoint = event->globalPos();   //鼠标全局坐标
+
+    QRect rect = this->rect();  //rect == QRect(0,0 1280x720)
+    QPoint topLeft = mapToGlobal(rect.topLeft());
+    QPoint bottomRight = mapToGlobal(rect.bottomRight());
 }
 
 
