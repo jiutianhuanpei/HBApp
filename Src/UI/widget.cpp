@@ -7,7 +7,11 @@
 #include "TreeView/hbitemdata.h"
 #include "../Base/base.h"
 
+#include "../Net/netmanager.h"
+#include <QStackedWidget>
+
 using namespace Base;
+using namespace NetTools;
 
 Widget::Widget(QWidget *parent) :
     QWidget(parent),
@@ -15,9 +19,10 @@ Widget::Widget(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    setWindowFlags(Qt::FramelessWindowHint | windowFlags());
 
-
-
+    _InitializeWidgets();
+    _InitializeConnects();
 }
 
 Widget::~Widget()
@@ -26,47 +31,118 @@ Widget::~Widget()
 }
 
 
-void Widget::log(const QString msg)
+void Widget::_InitializeWidgets()
 {
-    qDebug() << "msg: " << msg;
+    qDebug() << "All " << ui->topBar->visiableIndexs();
+
+
+
+    foreach (MenuIndex index, ui->topBar->visiableIndexs()) {
+
+        switch (index) {
+        case BigScreen:
+        {
+            QWidget *main = new QWidget;
+            ui->stackedWidget->insertWidget(BigScreen, main);
+            break;
+        }
+        case Monitor:
+        {
+            QWidget *main = new QWidget;
+            ui->stackedWidget->insertWidget(Monitor, main);
+            break;
+        }
+        case PersonMgr:
+        {
+            HBWebView *webView = new HBWebView;
+            ui->stackedWidget->insertWidget(PersonMgr, webView);
+            break;
+        }
+        case Poll:
+        {
+            QWidget *main = new QWidget;
+            ui->stackedWidget->insertWidget(Poll, main);
+            break;
+        }
+        case Map:
+        {
+            HBWebView *webView = new HBWebView;
+            ui->stackedWidget->insertWidget(Web, webView);
+            break;
+        }
+        case Web:
+        {
+            HBWebView *webView = new HBWebView;
+            ui->stackedWidget->insertWidget(Web, webView);
+            break;
+        }
+
+        default:
+            break;
+        }
+    }
+
 }
 
-void Widget::on_pBtn_add_clicked()
+void Widget::_InitializeConnects()
 {
-    AddUserWgt *add = new AddUserWgt();
-
-    QRect rect = qApp->activeWindow()->geometry();
-
-    int x = rect.x();
-    int y = rect.y();
-
-    x += ((rect.width() - add->width()) / 2.0);
-    y += ((rect.height() - add->height()) / 2.0);
-
-    add->move(x, y);
-    add->show();
+    connect(ui->topBar, &TopBarWgt::signal_didClickedMenu, this, &Widget::didClickedMenu);
 }
 
-void Widget::on_pBtn_delete_clicked()
+void Widget::didClickedMenu(MenuIndex index)
 {
+    ui->stackedWidget->setCurrentIndex(index);
 
+    qDebug() << "DID clicked: " << index << ui->stackedWidget->currentWidget();
+
+    switch (index) {
+    case BigScreen:
+    {
+
+        break;
+    }
+    case Monitor:
+    {
+
+        break;
+    }
+    case PersonMgr:
+    {
+        ((HBWebView *)ui->stackedWidget->currentWidget())->load(QUrl("http://www.baidu.com"));
+        break;
+    }
+    case Poll:
+    {
+
+        break;
+    }
+    case Map:
+    {
+        ((HBWebView *)ui->stackedWidget->currentWidget())->load(QUrl("http://www.qq.com"));
+        break;
+    }
+    case Web:
+    {
+        ((HBWebView *)ui->stackedWidget->currentWidget())->load(QUrl("http://www.shenhongbang.cc"));
+        break;
+    }
+
+    default:
+        break;
+    }
 }
 
-void Widget::on_pBtn_modify_clicked()
-{
-    QModelIndex index = ui->treeView->selectionModel()->currentIndex();
-    qDebug() << index.internalPointer();
 
 
+//AddUserWgt *add = new AddUserWgt();
 
-}
+//QRect rect = qApp->activeWindow()->geometry();
 
-void Widget::on_pBtn_log_clicked()
-{
+//int x = rect.x();
+//int y = rect.y();
 
-    QList<QVariant> list;
-    list << "kkk" << "ooo";
+//x += ((rect.width() - add->width()) / 2.0);
+//y += ((rect.height() - add->height()) / 2.0);
 
-    ui->treeView->appendData(list, ui->treeView->selectionModel()->currentIndex());
-
-}
+//add->move(x, y);
+//add->show();

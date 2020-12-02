@@ -2,7 +2,8 @@
 #define WIDGET_H
 
 #include <QWidget>
-
+#include "hbwebview.h"
+#include "uiheader.h"
 
 namespace Ui {
 class Widget;
@@ -16,20 +17,13 @@ public:
     explicit Widget(QWidget *parent = nullptr);
     ~Widget();
 
-    void log(const QString msg);
-
-private slots:
-    void on_pBtn_add_clicked();
-
-    void on_pBtn_delete_clicked();
-
-    void on_pBtn_modify_clicked();
-
-    void on_pBtn_log_clicked();
+private:
+    void _InitializeWidgets();
+    void _InitializeConnects();
+    void didClickedMenu(MenuIndex index);
 
 private:
     Ui::Widget *ui;
-
 
 };
 
