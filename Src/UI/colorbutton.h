@@ -23,7 +23,7 @@ signals:
 
 
 protected:
-    void mousePressEvent(QMouseEvent event);
+    void mousePressEvent(QMouseEvent *event);
 
 };
 

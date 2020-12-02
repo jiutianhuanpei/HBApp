@@ -8,6 +8,10 @@ TopBarWgt::TopBarWgt(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    zc = new ZoomControl(this);
+    zc->setGeometry(0, 0, 100, 30);
+
+
     qRegisterMetaType<MenuIndex>("MenuIndex");
 
     m_btns = new QButtonGroup(this);
@@ -42,5 +46,10 @@ QVector<MenuIndex> TopBarWgt::visiableIndexs()
     }
 
     return array;
+}
+
+void TopBarWgt::setCurrentIndex(MenuIndex index)
+{
+    m_btns->button(index)->setChecked(true);
 }
 

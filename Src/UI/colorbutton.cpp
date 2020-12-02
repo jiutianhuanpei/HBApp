@@ -12,10 +12,12 @@ ColorButton::ColorButton(ButtonType type, QWidget *parent) : QWidget(parent)
         colorStr = "green";
 
     QString style = QString("background: %1;").arg(colorStr);
-    setStyleSheet(style);
+    style = "background:green;";
+//    setStyleSheet(style);
+
 }
 
-void ColorButton::mousePressEvent(QMouseEvent event)
+void ColorButton::mousePressEvent(QMouseEvent *event)
 {
     QWidget::mousePressEvent(event);
     emit signalDidClickedBtn();

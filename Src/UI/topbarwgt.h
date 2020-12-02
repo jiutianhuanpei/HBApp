@@ -5,6 +5,7 @@
 #include <QFrame>
 #include "uiheader.h"
 #include <QButtonGroup>
+#include "zoomcontrol.h"
 
 namespace Ui {
 class TopBarWgt;
@@ -20,6 +21,7 @@ public:
 
 
     QVector<MenuIndex> visiableIndexs();
+    void setCurrentIndex(MenuIndex index);
 
 
 signals:
@@ -28,7 +30,10 @@ signals:
 private:
     Ui::TopBarWgt *ui;
 
+    ZoomControl *zc;
+
     QButtonGroup *m_btns;
+
 
 
 };

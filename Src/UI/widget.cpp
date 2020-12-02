@@ -9,6 +9,8 @@
 
 #include "../Net/netmanager.h"
 #include <QStackedWidget>
+#include "zoomcontrol.h"
+#include "colorbutton.h"
 
 using namespace Base;
 using namespace NetTools;
@@ -23,6 +25,9 @@ Widget::Widget(QWidget *parent) :
 
     _InitializeWidgets();
     _InitializeConnects();
+
+    ui->stackedWidget->setCurrentIndex(BigScreen);
+    ui->topBar->setCurrentIndex(BigScreen);
 }
 
 Widget::~Widget()
@@ -33,10 +38,6 @@ Widget::~Widget()
 
 void Widget::_InitializeWidgets()
 {
-    qDebug() << "All " << ui->topBar->visiableIndexs();
-
-
-
     foreach (MenuIndex index, ui->topBar->visiableIndexs()) {
 
         switch (index) {
@@ -44,6 +45,23 @@ void Widget::_InitializeWidgets()
         {
             QWidget *main = new QWidget;
             ui->stackedWidget->insertWidget(BigScreen, main);
+
+//            QWidget *zc = new QWidget(main);
+//            zc->setFixedSize(100, 50);
+//            zc->setStyleSheet("background:red;");
+
+//            ColorButton *btn = new ColorButton(ColorButton::Max, main);
+//            ui->stackedWidget->insertWidget(BigScreen, btn);
+
+            QWidget *btn = new QWidget(main);
+
+//            QPushButton *btn = new QPushButton(main);
+//            btn->setFixedSize(50, 50);
+//            btn->move(100, 50);
+            btn->setStyleSheet("background:green;");
+            btn->resize(100, 100);
+            btn->show();
+
             break;
         }
         case Monitor:
