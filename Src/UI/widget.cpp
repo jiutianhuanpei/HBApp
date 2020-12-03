@@ -11,6 +11,7 @@
 #include <QStackedWidget>
 #include "../MessageCenter/messagecore.h"
 #include <QCursor>
+#include <QRect>
 
 using namespace Base;
 using namespace NetTools;
@@ -21,9 +22,8 @@ Widget::Widget(QWidget *parent) :
 {
     ui->setupUi(this);
 
-//    setWindowFlags(Qt::CustomizeWindowHint );
     setWindowFlags(Qt::FramelessWindowHint | windowFlags());
-
+    setAttribute(Qt::WA_Mapped);
 
     _InitializeWidgets();
     _InitializeConnects();
@@ -225,7 +225,7 @@ void Widget::region(const QPoint &point)
         m_Direction = RightBottom;
     }
 
-//    qDebug() << "Current region: " << m_Direction;
+    //    qDebug() << "Current region: " << m_Direction;
 
     if (m_Direction == Left || m_Direction == Right)
     {
@@ -259,21 +259,123 @@ void Widget::mouseMoveEvent(QMouseEvent *event)
     QPoint topLeft = mapToGlobal(rect.topLeft());
     QPoint bottomRight = mapToGlobal(rect.bottomRight());
 
-    if (event->buttons() & Qt::LeftButton)
+    if (!(event->buttons() & Qt::LeftButton))
     {
-        if (m_Direction == Moveside)
-        {
-            QPoint ptemp=event->globalPos();
-            ptemp=ptemp-lastPoint;  //鼠标移动的偏移量
-            ptemp=ptemp+pos();
-            move(ptemp);
-
-        }
-
-    }
-    else {
         region(globalPoint);
     }
+    else
+    {
+        QPoint ptemp=event->globalPos();
+        ptemp=ptemp-lastPoint;  //鼠标移动的偏移量
+
+        if (m_Direction == Moveside)
+        {
+            ptemp=ptemp+pos();
+            move(ptemp);
+        }
+        else
+        {
+            QRect newRect = QRect(topLeft, bottomRight);
+
+            int mouseY = globalPoint.y();
+            int mouseX = globalPoint.x();
+
+            switch (m_Direction) {
+            case LeftTop:
+            {
+                if (bottomRight.x() - globalPoint.x() <= minimumWidth())
+                    newRect.setX(topLeft.x());
+                else
+                    newRect.setX(globalPoint.x());
+
+                if (bottomRight.y() - globalPoint.y() <= minimumHeight())
+                    newRect.setY(topLeft.y());
+                else
+                    newRect.setY(globalPoint.y());
+
+                break;
+            }
+            case Top:
+            {
+                if (bottomRight.y() - mouseY <= minimumHeight())
+                    newRect.setY(topLeft.y());
+                else
+                    newRect.setY(mouseY);
+
+                break;
+            }
+            case RightTop:
+            {
+                if (mouseX - topLeft.x() <= minimumWidth())
+                    newRect.setRight(bottomRight.x());
+                else
+                    newRect.setRight(mouseX);
+
+                if (bottomRight.y() - globalPoint.y() <= minimumHeight())
+                    newRect.setY(topLeft.y());
+                else
+                    newRect.setY(globalPoint.y());
+                break;
+            }
+            case Right:
+            {
+                if (mouseX - topLeft.x() <= minimumWidth())
+                    newRect.setRight(bottomRight.x());
+                else
+                    newRect.setRight(mouseX);
+
+                break;
+            }
+            case RightBottom:
+            {
+                if (mouseX - topLeft.x() <= minimumWidth())
+                    newRect.setRight(bottomRight.x());
+                else
+                    newRect.setRight(mouseX);
+
+                if (mouseY - topLeft.y() <= minimumHeight())
+                    newRect.setHeight(bottomRight.y() - topLeft.y());
+                else
+                    newRect.setHeight(mouseY - topLeft.y());
+                break;
+                break;
+            }
+            case Bottom:
+            {
+                if (mouseY - topLeft.y() <= minimumHeight())
+                    newRect.setHeight(bottomRight.y() - topLeft.y());
+                else
+                    newRect.setHeight(mouseY - topLeft.y());
+                break;
+            }
+            case LeftBottom:
+            {
+                if (bottomRight.x() - mouseX < minimumWidth())
+                    newRect.setX(topLeft.x());
+                else
+                    newRect.setX(mouseX);
+
+                if (mouseY - topLeft.y() <= minimumHeight())
+                    newRect.setHeight(bottomRight.y() - topLeft.y());
+                else
+                    newRect.setHeight(mouseY - topLeft.y());
+                break;
+            }
+            case Left:
+            {
+                if (bottomRight.x() - mouseX < minimumWidth())
+                    newRect.setX(topLeft.x());
+                else
+                    newRect.setX(mouseX);
+                break;
+            }
+            default:
+                break;
+            }
+            setGeometry(newRect);
+        }
+    }
+
 
     lastPoint = event->globalPos();
     event->ignore();
