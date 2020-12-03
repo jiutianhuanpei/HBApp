@@ -12,6 +12,8 @@
 #include "../MessageCenter/messagecore.h"
 #include <QCursor>
 #include <QRect>
+#include <QGraphicsDropShadowEffect>
+#include <QHBoxLayout>
 
 using namespace Base;
 using namespace NetTools;
@@ -23,16 +25,12 @@ Widget::Widget(QWidget *parent) :
     ui->setupUi(this);
 
     setWindowFlags(Qt::FramelessWindowHint | windowFlags());
-    setAttribute(Qt::WA_Mapped);
+    setAttribute(Qt::WA_TranslucentBackground, true);
 
     _InitializeWidgets();
     _InitializeConnects();
 
-    foreach (QWidget *w, findChildren<QWidget*>()) {
-        w->setMouseTracking(true);
-    }
 
-    setMouseTracking(true);
 
     ui->stackedWidget->setCurrentIndex(BigScreen);
     ui->topBar->setCurrentIndex(BigScreen);
@@ -92,6 +90,20 @@ void Widget::_InitializeWidgets()
         }
     }
 
+    foreach (QWidget *w, findChildren<QWidget*>()) {
+        w->setMouseTracking(true);
+        qDebug() << "AAAA" << w;
+    }
+
+    setMouseTracking(true);
+
+
+    QGraphicsDropShadowEffect *effect = new QGraphicsDropShadowEffect();
+    effect->setOffset(0, 0);
+    effect->setColor(QColor(0,0,0,90));
+    effect->setBlurRadius(15);
+    ui->bgWgt->setGraphicsEffect(effect);
+
 }
 
 void Widget::_InitializeConnects()
@@ -112,10 +124,12 @@ void Widget::_InitializeConnects()
         {
             if (isFullScreen())
             {
+                ui->shadowLayout->setContentsMargins(9, 9, 9, 9);
                 showNormal();
             }
             else
             {
+                ui->shadowLayout->setContentsMargins(0, 0, 0, 0);
                 showFullScreen();
             }
         }
@@ -172,12 +186,17 @@ void Widget::region(const QPoint &point)
     QRect rect = this->rect();
 
     QPoint topLeft = this->mapToGlobal(rect.topLeft()); //左上
+    topLeft.setX(topLeft.x() + shadowSpace);
+    topLeft.setY(topLeft.y() + shadowSpace);
+
     QPoint rightBottom = this->mapToGlobal(rect.bottomRight());
+    rightBottom.setX(rightBottom.x() - shadowSpace);
+    rightBottom.setY(rightBottom.y() - shadowSpace);
 
     int x = point.x(); //Mouse point
     int y = point.y();
 
-    int padding = 5;
+    int padding = 15;
 
     if (x < topLeft.x() || x > rightBottom.x() || y < topLeft.y() || y > rightBottom.y())
     {
@@ -225,7 +244,7 @@ void Widget::region(const QPoint &point)
         m_Direction = RightBottom;
     }
 
-    //    qDebug() << "Current region: " << m_Direction;
+        qDebug() << "Current region: " << m_Direction;
 
     if (m_Direction == Left || m_Direction == Right)
     {
@@ -257,7 +276,10 @@ void Widget::mouseMoveEvent(QMouseEvent *event)
 
     QRect rect = this->rect();
     QPoint topLeft = mapToGlobal(rect.topLeft());
+
     QPoint bottomRight = mapToGlobal(rect.bottomRight());
+
+
 
     if (!(event->buttons() & Qt::LeftButton))
     {
@@ -265,11 +287,16 @@ void Widget::mouseMoveEvent(QMouseEvent *event)
     }
     else
     {
-        QPoint ptemp=event->globalPos();
-        ptemp=ptemp-lastPoint;  //鼠标移动的偏移量
+//        topLeft.setX(topLeft.x() - shadowSpace);
+//        topLeft.setY(topLeft.y() - shadowSpace);
+//        bottomRight.setX(bottomRight.x() + shadowSpace);
+//        bottomRight.setY(bottomRight.y() + shadowSpace);
+
 
         if (m_Direction == Moveside)
         {
+            QPoint ptemp=event->globalPos();
+            ptemp=ptemp-lastPoint;  //鼠标移动的偏移量
             ptemp=ptemp+pos();
             move(ptemp);
         }
@@ -283,15 +310,15 @@ void Widget::mouseMoveEvent(QMouseEvent *event)
             switch (m_Direction) {
             case LeftTop:
             {
-                if (bottomRight.x() - globalPoint.x() <= minimumWidth())
+                if (bottomRight.x() - mouseX <= minimumWidth())
                     newRect.setX(topLeft.x());
                 else
-                    newRect.setX(globalPoint.x());
+                    newRect.setX(mouseX - shadowSpace);
 
-                if (bottomRight.y() - globalPoint.y() <= minimumHeight())
+                if (bottomRight.y() - mouseY <= minimumHeight())
                     newRect.setY(topLeft.y());
                 else
-                    newRect.setY(globalPoint.y());
+                    newRect.setY(mouseY - shadowSpace);
 
                 break;
             }
@@ -300,7 +327,7 @@ void Widget::mouseMoveEvent(QMouseEvent *event)
                 if (bottomRight.y() - mouseY <= minimumHeight())
                     newRect.setY(topLeft.y());
                 else
-                    newRect.setY(mouseY);
+                    newRect.setY(mouseY - shadowSpace);
 
                 break;
             }
@@ -309,12 +336,12 @@ void Widget::mouseMoveEvent(QMouseEvent *event)
                 if (mouseX - topLeft.x() <= minimumWidth())
                     newRect.setRight(bottomRight.x());
                 else
-                    newRect.setRight(mouseX);
+                    newRect.setRight(mouseX + shadowSpace);
 
-                if (bottomRight.y() - globalPoint.y() <= minimumHeight())
+                if (bottomRight.y() - mouseY <= minimumHeight())
                     newRect.setY(topLeft.y());
                 else
-                    newRect.setY(globalPoint.y());
+                    newRect.setY(mouseY - shadowSpace);
                 break;
             }
             case Right:
@@ -322,7 +349,7 @@ void Widget::mouseMoveEvent(QMouseEvent *event)
                 if (mouseX - topLeft.x() <= minimumWidth())
                     newRect.setRight(bottomRight.x());
                 else
-                    newRect.setRight(mouseX);
+                    newRect.setRight(mouseX + shadowSpace);
 
                 break;
             }
@@ -331,12 +358,12 @@ void Widget::mouseMoveEvent(QMouseEvent *event)
                 if (mouseX - topLeft.x() <= minimumWidth())
                     newRect.setRight(bottomRight.x());
                 else
-                    newRect.setRight(mouseX);
+                    newRect.setRight(mouseX + shadowSpace);
 
                 if (mouseY - topLeft.y() <= minimumHeight())
                     newRect.setHeight(bottomRight.y() - topLeft.y());
                 else
-                    newRect.setHeight(mouseY - topLeft.y());
+                    newRect.setHeight(mouseY + shadowSpace - topLeft.y());
                 break;
                 break;
             }
@@ -345,7 +372,7 @@ void Widget::mouseMoveEvent(QMouseEvent *event)
                 if (mouseY - topLeft.y() <= minimumHeight())
                     newRect.setHeight(bottomRight.y() - topLeft.y());
                 else
-                    newRect.setHeight(mouseY - topLeft.y());
+                    newRect.setHeight(mouseY + shadowSpace - topLeft.y());
                 break;
             }
             case LeftBottom:
@@ -353,12 +380,12 @@ void Widget::mouseMoveEvent(QMouseEvent *event)
                 if (bottomRight.x() - mouseX < minimumWidth())
                     newRect.setX(topLeft.x());
                 else
-                    newRect.setX(mouseX);
+                    newRect.setX(mouseX - shadowSpace);
 
                 if (mouseY - topLeft.y() <= minimumHeight())
                     newRect.setHeight(bottomRight.y() - topLeft.y());
                 else
-                    newRect.setHeight(mouseY - topLeft.y());
+                    newRect.setHeight(mouseY + shadowSpace - topLeft.y());
                 break;
             }
             case Left:
@@ -366,7 +393,7 @@ void Widget::mouseMoveEvent(QMouseEvent *event)
                 if (bottomRight.x() - mouseX < minimumWidth())
                     newRect.setX(topLeft.x());
                 else
-                    newRect.setX(mouseX);
+                    newRect.setX(mouseX - shadowSpace);
                 break;
             }
             default:
@@ -381,17 +408,3 @@ void Widget::mouseMoveEvent(QMouseEvent *event)
     event->ignore();
 }
 
-
-
-//AddUserWgt *add = new AddUserWgt();
-
-//QRect rect = qApp->activeWindow()->geometry();
-
-//int x = rect.x();
-//int y = rect.y();
-
-//x += ((rect.width() - add->width()) / 2.0);
-//y += ((rect.height() - add->height()) / 2.0);
-
-//add->move(x, y);
-//add->show();

@@ -34,6 +34,7 @@ private:
 
     AppBorderDirection m_Direction;
     QPoint lastPoint;
+    int shadowSpace = 9;
 
 };
 
