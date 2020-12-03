@@ -244,8 +244,6 @@ void Widget::region(const QPoint &point)
         m_Direction = RightBottom;
     }
 
-        qDebug() << "Current region: " << m_Direction;
-
     if (m_Direction == Left || m_Direction == Right)
     {
         setCursor(QCursor(Qt::SizeHorCursor));
@@ -287,12 +285,6 @@ void Widget::mouseMoveEvent(QMouseEvent *event)
     }
     else
     {
-//        topLeft.setX(topLeft.x() - shadowSpace);
-//        topLeft.setY(topLeft.y() - shadowSpace);
-//        bottomRight.setX(bottomRight.x() + shadowSpace);
-//        bottomRight.setY(bottomRight.y() + shadowSpace);
-
-
         if (m_Direction == Moveside)
         {
             QPoint ptemp=event->globalPos();
