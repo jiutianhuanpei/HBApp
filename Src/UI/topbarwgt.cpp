@@ -1,7 +1,7 @@
 #include "topbarwgt.h"
 #include "ui_topbarwgt.h"
 #include <QDebug>
-#include "../Src/MessageCenter/messagecore.h"
+#include "../MessageCenter/messagecore.h"
 
 TopBarWgt::TopBarWgt(QWidget *parent) :
     QFrame(parent),

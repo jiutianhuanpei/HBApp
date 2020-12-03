@@ -27,10 +27,13 @@ private:
 
 
 protected:
-   void mouseMoveEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
 
 private:
     Ui::Widget *ui;
+
+    AppBorderDirection m_Direction;
+    QPoint lastPoint;
 
 };
 

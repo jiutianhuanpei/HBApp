@@ -49,6 +49,9 @@ background:#3CBDFF;
        <height>70</height>
       </size>
      </property>
+     <property name="mouseTracking">
+      <bool>false</bool>
+     </property>
      <property name="frameShape">
       <enum>QFrame::NoFrame</enum>
      </property>
@@ -61,7 +64,11 @@ background:#3CBDFF;
     </widget>
    </item>
    <item>
-    <widget class="QStackedWidget" name="stackedWidget"/>
+    <widget class="QStackedWidget" name="stackedWidget">
+     <property name="mouseTracking">
+      <bool>false</bool>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>
@@ -70,7 +77,7 @@ background:#3CBDFF;
   <customwidget>
    <class>TopBarWgt</class>
    <extends>QFrame</extends>
-   <header location="global">../Src/UI/topbarwgt.h</header>
+   <header location="global">../../Src/UI/topbarwgt.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

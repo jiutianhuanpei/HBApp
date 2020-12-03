@@ -10,6 +10,9 @@
     <height>206</height>
    </rect>
   </property>
+  <property name="mouseTracking">
+   <bool>false</bool>
+  </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
@@ -101,6 +104,9 @@ border-image: url(:/Assets/Image/ioc_operation_on.png);
    </property>
    <item>
     <widget class="QWidget" name="widget_2" native="true">
+     <property name="mouseTracking">
+      <bool>false</bool>
+     </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <property name="spacing">
        <number>0</number>
@@ -118,7 +124,11 @@ border-image: url(:/Assets/Image/ioc_operation_on.png);
        <number>0</number>
       </property>
       <item>
-       <widget class="ZoomCtl" name="zoomCtl" native="true"/>
+       <widget class="ZoomCtl" name="zoomCtl" native="true">
+        <property name="mouseTracking">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
       <item>
        <spacer name="horizontalSpacer_3">
@@ -138,6 +148,9 @@ border-image: url(:/Assets/Image/ioc_operation_on.png);
    </item>
    <item>
     <widget class="QWidget" name="widget" native="true">
+     <property name="mouseTracking">
+      <bool>false</bool>
+     </property>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <property name="spacing">
        <number>15</number>
@@ -357,7 +370,7 @@ border-image: url(:/Assets/Image/ioc_operation_on.png);
   <customwidget>
    <class>ZoomCtl</class>
    <extends>QWidget</extends>
-   <header location="global">../Src/UI/zoomctl.h</header>
+   <header location="global">../../Src/UI/zoomctl.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

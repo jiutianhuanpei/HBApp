@@ -19,5 +19,20 @@ enum WindowZoom {
 };
 
 
+enum AppBorderDirection {
+    LeftTop,
+    Top,
+    RightTop,
+    Right,
+    RightBottom,
+    Bottom,
+    LeftBottom,
+    Left,
+    Inside,
+    Outside,
+    Moveside
+};
+
+
 
 #endif // UIHEADER_H

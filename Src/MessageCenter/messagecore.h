@@ -2,7 +2,7 @@
 #define MESSAGECORE_H
 
 #include <QObject>
-#include "../Src/UI/uiheader.h"
+#include "../UI/uiheader.h"
 
 
 class MessageCore : public QObject

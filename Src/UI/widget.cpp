@@ -9,7 +9,8 @@
 
 #include "../Net/netmanager.h"
 #include <QStackedWidget>
-#include "../Src/MessageCenter/messagecore.h"
+#include "../MessageCenter/messagecore.h"
+#include <QCursor>
 
 using namespace Base;
 using namespace NetTools;
@@ -20,10 +21,18 @@ Widget::Widget(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    setWindowFlags(Qt::FramelessWindowHint | Qt::WindowMinimizeButtonHint | windowFlags());
+//    setWindowFlags(Qt::CustomizeWindowHint );
+    setWindowFlags(Qt::FramelessWindowHint | windowFlags());
+
 
     _InitializeWidgets();
     _InitializeConnects();
+
+    foreach (QWidget *w, findChildren<QWidget*>()) {
+        w->setMouseTracking(true);
+    }
+
+    setMouseTracking(true);
 
     ui->stackedWidget->setCurrentIndex(BigScreen);
     ui->topBar->setCurrentIndex(BigScreen);
@@ -37,6 +46,7 @@ Widget::~Widget()
 
 void Widget::_InitializeWidgets()
 {
+
     foreach (MenuIndex index, ui->topBar->visiableIndexs()) {
 
         switch (index) {
@@ -161,20 +171,112 @@ void Widget::region(const QPoint &point)
 {
     QRect rect = this->rect();
 
-    QPoint topLeft = this->mapToGlobal(rect.topLeft()); //Â∞ÜÂ∑¶‰∏äËßíÁöÑ(0,0)ËΩ¨Âåñ‰∏∫ÂÖ®Â±ÄÂùêÊ†á
+    QPoint topLeft = this->mapToGlobal(rect.topLeft()); //◊Û…œ
     QPoint rightBottom = this->mapToGlobal(rect.bottomRight());
 
-    int x = point.x(); //ÂΩìÂâçÈº†Ê†áÁöÑÂùêÊ†á
+    int x = point.x(); //Mouse point
     int y = point.y();
+
+    int padding = 5;
+
+    if (x < topLeft.x() || x > rightBottom.x() || y < topLeft.y() || y > rightBottom.y())
+    {
+        m_Direction = Outside;
+
+    }
+    else if ((x <= topLeft.x() + padding) && (y >= topLeft.y() + padding) && (y <= rightBottom.y() - padding))
+    {
+        m_Direction = Left;
+    }
+    else if ((x <= topLeft.x() + padding) && (y < topLeft.y() + padding))
+    {
+        m_Direction = LeftTop;
+    }
+    else if ((x <= topLeft.x() + padding) && (y >= rightBottom.y() - padding))
+    {
+        m_Direction = LeftBottom;
+    }
+    else if ((x <= rightBottom.x() - padding) && (y <= topLeft.y() + padding))
+    {
+        m_Direction = Top;
+    }
+    else if ((x <= rightBottom.x() - padding) && (y < topLeft.y() + ui->topBar->height()))
+    {
+        m_Direction = Moveside;
+    }
+    else if ((x <= rightBottom.x() - padding) && (y < rightBottom.y() - padding))
+    {
+        m_Direction = Inside;
+    }
+    else if ((x <= rightBottom.x() - padding) && (y >= rightBottom.y() - padding))
+    {
+        m_Direction = Bottom;
+    }
+    else if ((x > rightBottom.x() - padding) && (y < topLeft.y() + padding))
+    {
+        m_Direction = RightTop;
+    }
+    else if ((x > rightBottom.x() - padding) && (y < rightBottom.y() - padding))
+    {
+        m_Direction = Right;
+    }
+    else
+    {
+        m_Direction = RightBottom;
+    }
+
+//    qDebug() << "Current region: " << m_Direction;
+
+    if (m_Direction == Left || m_Direction == Right)
+    {
+        setCursor(QCursor(Qt::SizeHorCursor));
+    }
+    else if (m_Direction == Top || m_Direction == Bottom)
+    {
+        setCursor(QCursor(Qt::SizeVerCursor));
+    }
+    else if (m_Direction == Inside || m_Direction == Outside || m_Direction == Moveside)
+    {
+        setCursor(QCursor(Qt::ArrowCursor));
+    }
+    else if (m_Direction == LeftTop || m_Direction == RightBottom)
+    {
+        setCursor(QCursor(Qt::SizeFDiagCursor));
+    }
+    else if (m_Direction == LeftBottom || m_Direction == RightTop)
+    {
+        setCursor(QCursor(Qt::SizeBDiagCursor));
+    }
+
+
 }
 
 void Widget::mouseMoveEvent(QMouseEvent *event)
 {
     QPoint globalPoint = event->globalPos();   //Èº†Ê†áÂÖ®Â±ÄÂùêÊ†á
 
-    QRect rect = this->rect();  //rect == QRect(0,0 1280x720)
+    QRect rect = this->rect();
     QPoint topLeft = mapToGlobal(rect.topLeft());
     QPoint bottomRight = mapToGlobal(rect.bottomRight());
+
+    if (event->buttons() & Qt::LeftButton)
+    {
+        if (m_Direction == Moveside)
+        {
+            QPoint ptemp=event->globalPos();
+            ptemp=ptemp-lastPoint;  // Û±Í“∆∂Øµƒ∆´“∆¡ø
+            ptemp=ptemp+pos();
+            move(ptemp);
+
+        }
+
+    }
+    else {
+        region(globalPoint);
+    }
+
+    lastPoint = event->globalPos();
+    event->ignore();
 }
 
 
