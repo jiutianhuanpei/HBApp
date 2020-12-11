@@ -1,0 +1,42 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Assets/Image/ico_follow_nor.png</file>
+        <file>Assets/Image/ico_follow_on.png</file>
+        <file>Assets/Image/ico_history_nor.png</file>
+        <file>Assets/Image/ico_history_on.png</file>
+        <file>Assets/Image/ico_lanplay_nor.png</file>
+        <file>Assets/Image/ico_lanplay_on.png</file>
+        <file>Assets/Image/ico_Menu_face_normal.png</file>
+        <file>Assets/Image/ico_Menu_face_select.png</file>
+        <file>Assets/Image/ico_msg_nor.png</file>
+        <file>Assets/Image/ico_msg_on.png</file>
+        <file>Assets/Image/ico_org_nor.png</file>
+        <file>Assets/Image/ico_org_on.png</file>
+        <file>Assets/Image/ico_polling_nor.png</file>
+        <file>Assets/Image/ico_polling_on.png</file>
+        <file>Assets/Image/ico_setting.png</file>
+        <file>Assets/Image/ico_setting_reddot.png</file>
+        <file>Assets/Image/ico_system_nor.png</file>
+        <file>Assets/Image/ico_system_on.png</file>
+        <file>Assets/Image/icon_bigscreen.png</file>
+        <file>Assets/Image/icon_bigscreen_white.png</file>
+        <file>Assets/Image/icon_guangbo.png</file>
+        <file>Assets/Image/icon_guangbo_white.png</file>
+        <file>Assets/Image/icon_intelligentmonitor.png</file>
+        <file>Assets/Image/icon_intelligentmonitor_white.png</file>
+        <file>Assets/Image/icon_zongzhixinxi_blue.png</file>
+        <file>Assets/Image/icon_zongzhixinxi_white.png</file>
+        <file>Assets/Image/icon_zongzhixinxibianji_blue.png</file>
+        <file>Assets/Image/icon_zongzhixinxibianji_white.png</file>
+        <file>Assets/Image/ioc_map_nor.png</file>
+        <file>Assets/Image/ioc_map_on.png</file>
+        <file>Assets/Image/ioc_operation_nor.png</file>
+        <file>Assets/Image/ioc_operation_on.png</file>
+        <file>Assets/Image/green_nor.png</file>
+        <file>Assets/Image/green_on.png</file>
+        <file>Assets/Image/red_nor.png</file>
+        <file>Assets/Image/red_on.png</file>
+        <file>Assets/Image/yellow_nor.png</file>
+        <file>Assets/Image/yellow_on.png</file>
+    </qresource>
+</RCC>
