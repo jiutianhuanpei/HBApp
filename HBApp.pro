@@ -28,7 +28,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++14
 CONFIG+=sdk_no_version_check
 
-#DESTDIR = ../Bin
+DESTDIR = ../Bin
 
 
 include(Src/UI/UI.pri)

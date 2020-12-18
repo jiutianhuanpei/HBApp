@@ -27,12 +27,28 @@
   </property>
   <property name="styleSheet">
    <string notr="true">
+QPushButton{
+	border-radius:4;
+	border:1 solid #d9e0eb;
+	background:white;
+	color:#5e636b;
+	font-family:'PingFang SC Regular';
+	font-size:12px;
+}
+
 QPushButton[page=true]{
 	min-width:24;
-	max-width:24;
 	min-height:24;
-	max-height:24;
-	color:#5e636b;
+	padding-left:5;
+	padding-right:5;
+}
+
+QPushButton[page=true]:hover{
+	color:#1aabff;
+}
+
+QPushButton[currentPage=true]:hover{
+	color:white;
 }
 
 QPushButton[currentPage=true]{
@@ -41,11 +57,9 @@ QPushButton[currentPage=true]{
 	color:white;
 }
 
-QPushButton{
-	border-radius:4;
-	border:1 solid #d9e0eb;
-	background:white;
-}
+
+
+
 
 #lineEdit{
 	min-width:68;
@@ -55,6 +69,7 @@ QPushButton{
 	border:1 solid #d9e0eb;
 	border-radius:4;
 }
+
 
 #pBtn_goto{
 	border:0;

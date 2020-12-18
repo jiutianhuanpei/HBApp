@@ -13,7 +13,8 @@ SOURCES += \
     $$PWD/colorbutton.cpp \
     $$PWD/zoomctl.cpp \
     $$PWD/hypagenavigator.cpp \
-    $$PWD/wgtintelligentmonitor.cpp
+    $$PWD/wgtintelligentmonitor.cpp \
+    $$PWD/addpersondlg.cpp
 
 HEADERS += \
     $$PWD/widget.h \
@@ -27,7 +28,8 @@ HEADERS += \
     $$PWD/colorbutton.h \
     $$PWD/zoomctl.h \
     $$PWD/hypagenavigator.h \
-    $$PWD/wgtintelligentmonitor.h
+    $$PWD/wgtintelligentmonitor.h \
+    $$PWD/addpersondlg.h
 
 FORMS += \
     $$PWD/widget.ui \
@@ -35,7 +37,8 @@ FORMS += \
     $$PWD/topbarwgt.ui \
     $$PWD/zoomctl.ui \
     $$PWD/hypagenavigator.ui \
-    $$PWD/wgtintelligentmonitor.ui
+    $$PWD/wgtintelligentmonitor.ui \
+    $$PWD/addpersondlg.ui
 
 RESOURCES += \
     $$PWD/res.qrc

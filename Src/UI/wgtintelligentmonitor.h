@@ -1,7 +1,8 @@
-#ifndef WGTINTELLIGENTMONITOR_H
+﻿#ifndef WGTINTELLIGENTMONITOR_H
 #define WGTINTELLIGENTMONITOR_H
 
 #include <QWidget>
+#include "addpersondlg.h"
 
 namespace Ui {
 class WgtIntelligentMonitor;
@@ -15,8 +16,13 @@ public:
     explicit WgtIntelligentMonitor(QWidget *parent = nullptr);
     ~WgtIntelligentMonitor();
 
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::WgtIntelligentMonitor *ui;
+
+    AddPersonDlg *m_addPerson;
 };
 
 #endif // WGTINTELLIGENTMONITOR_H

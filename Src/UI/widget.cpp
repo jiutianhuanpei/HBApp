@@ -23,6 +23,7 @@ Widget::Widget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Widget)
 {
+
     ui->setupUi(this);
 
     setWindowFlags(Qt::FramelessWindowHint | windowFlags());
@@ -65,6 +66,9 @@ void Widget::_InitializeWidgets()
 
 //    QLabel *imgView = new QLabel;
 //    m_rightWgt->addWidget(imgView);
+
+
+//    setStyleSheet("background:red;");
 
     m_intelligent = new WgtIntelligentMonitor;
     m_rightWgt->addWidget(m_intelligent);

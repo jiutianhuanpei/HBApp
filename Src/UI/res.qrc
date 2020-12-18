@@ -38,5 +38,7 @@
         <file>Assets/Image/red_on.png</file>
         <file>Assets/Image/yellow_nor.png</file>
         <file>Assets/Image/yellow_on.png</file>
+        <file>Assets/Image/AddPerson/btn_cancel.png</file>
+        <file>Assets/Image/AddPerson/btn_ensure.png</file>
     </qresource>
 </RCC>
